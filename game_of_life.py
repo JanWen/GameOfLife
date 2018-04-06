@@ -48,9 +48,9 @@ def step():
 #Prints the current layout, waits 1 second, clears the console, repeats 
 while 1:
     start = time.time()
-    print("#"*size*2)
+    print(" ".join("#"*size))
     print("\n".join([" ".join([str(i) for i in row]) for row in layout]))
-    print("#"*size*2)
+    print(" ".join("#"*size))
     step()
     wait = 1-(time.time()-start)
     if wait <= 1:
