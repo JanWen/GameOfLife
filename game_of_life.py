@@ -1,6 +1,6 @@
 import random, os, time
 
-#layout is square
+#square layout
 size = 50
 layout = [[random.choice((" ",0)) for j in range(size)] for i in range(size)]
 
@@ -12,12 +12,12 @@ def neighbors(row, col, status):
                 if i != row or j != col:
                     yield (i,j)
 
-#Loops over layout once to record the necessary changes, once to apply them
+#loops over layout once to record the necessary changes, again to apply them
 def step():
     signals_dict = {}
-    #If a cell alive, it's neighbors get added singnal_dict with a value of 1
-    #if a neighbor is already in the dict, their value get increased by 1
-    #Ends up being index of how many alive neighbors a cell has
+    #if a cell alive, its neighbors get added to singnal_dict with a value of 1
+    #if a neighbor is already in the dict, their value is increased by 1
+    #dict is an index of how many alive neighbors a cell has
     current_row = 0
     for row in layout:
         current_col = 0
@@ -28,8 +28,11 @@ def step():
                 else: signals_dict[sig] += 1
             current_col += 1
         current_row += 1
-    
-    #Loop through each cell and and make changes based on signal_dict
+
+    #if a living cell has more than 3 living neighbors, it dies
+    #if a living cell has less than 2 living neighbors, it dies
+    #if a dead cell has 3 neighbors, it becomes alive
+    #loop through each cell and and make changes based on signal_dict
     current_row = 0
     for row in layout:
         current_col = 0
@@ -45,7 +48,7 @@ def step():
             current_col += 1
         current_row += 1
 
-#Prints the current layout, waits 1 second, clears the console, repeats 
+#prints the current layout, waits 1 second, clears the console, repeats 
 while 1:
     start = time.time()
     print(" ".join("#"*size))
